@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">강원 로컬 푸드 마켓</string>
+
+    <string name="db_name">glfm.db</string>
+    <string name="table_name">glfm</string>
+
+</resources>
