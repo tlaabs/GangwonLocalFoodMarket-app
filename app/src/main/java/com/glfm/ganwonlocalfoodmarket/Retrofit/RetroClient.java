@@ -3,7 +3,9 @@ package com.glfm.ganwonlocalfoodmarket.Retrofit;
 import android.content.Context;
 
 import com.glfm.ganwonlocalfoodmarket.Object.BuyVO;
+import com.glfm.ganwonlocalfoodmarket.Object.Login;
 import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
+import com.glfm.ganwonlocalfoodmarket.Object.SignUp;
 import com.glfm.ganwonlocalfoodmarket.Service.RetroBaseApiService;
 
 import java.util.List;
@@ -171,6 +173,47 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<BuyVO> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //회원가입
+
+    public void signup(SignUp dto, final RetroCallback callback) {
+        apiService.signup(dto).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //로그인
+    public void login(Login dto, final RetroCallback callback) {
+        apiService.login(dto).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 callback.onError(t);
             }
         });
