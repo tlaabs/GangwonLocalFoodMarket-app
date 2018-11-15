@@ -20,7 +20,9 @@ import retrofit2.http.Query;
 
 public interface RetroBaseApiService {
 
-    final String Base_URL = "http://172.30.1.52:8080/";
+//    final String Base_URL = "http://172.30.1.52:8080/";
+
+    final String Base_URL = "http://192.168.43.97:8080/";
 
     //회원가입
     @POST("user/signup")

@@ -2,6 +2,7 @@ package com.glfm.ganwonlocalfoodmarket.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.glfm.ganwonlocalfoodmarket.Object.Login;
 import com.glfm.ganwonlocalfoodmarket.R;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroCallback;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroClient;
+import com.glfm.ganwonlocalfoodmarket.Util.UserLoginSession;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +43,22 @@ public class LoginActivity extends AppCompatActivity {
         retroClient = RetroClient.getInstance(this).createBaseApi();
 
         init();
+    }
+
+    //자동로그인
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //pref 로드
+        SharedPreferences prefs = getSharedPreferences("glfm", MODE_PRIVATE);
+        String id = prefs.getString("id", "");
+        if(id == null || id.equals("")){//이전 로그인한 적이 없음
+        }else{
+            UserLoginSession.setUser(id);//세션 저장
+            Intent i = new Intent(mContext, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
     private void init(){
@@ -68,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void requestLogin(Login obj){
+    private void requestLogin(final Login obj){
         retroClient.login(obj, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
@@ -79,7 +97,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(int code, Object receivedData) {
                 Log.d(LOG, "성공");
                 Toast.makeText(getApplicationContext(),"로그인!",Toast.LENGTH_SHORT).show();
-                //Preference 작업
+                //Preference 작업 (첫 로그인시, 한번 로그인하면 자동로그인됨)
+                SharedPreferences prefs = getSharedPreferences("glfm", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("id", obj.getId());
+                editor.commit();
+                //넘겨줄때 아이디값 넘겨주자. 자동로그인도 구현해두자.(이건 onResume? oncreate에 넣어야할듯)
+                //세션에 저장
+                UserLoginSession.setUser(obj.getId());
+                Intent  i = new Intent(mContext, MainActivity.class);
+                startActivity(i);
+                finish();
             }
 
             @Override
