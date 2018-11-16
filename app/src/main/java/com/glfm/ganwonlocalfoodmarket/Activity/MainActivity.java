@@ -135,6 +135,9 @@ public class MainActivity extends AppCompatActivity implements
         } else if (id == R.id.nav_my_account) {
             Intent i = new Intent(this,UpdateMyProfileActivity.class);
             startActivity(i);
+         }else if (id == R.id.nav_card_manage) {
+            Intent i = new Intent(this,CardManageActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

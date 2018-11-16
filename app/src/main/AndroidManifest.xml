@@ -42,7 +42,8 @@
             android:name=".Activity.DrawerActivity"
             android:theme="@style/NoTitleTheme" />
         <activity android:name=".Activity.SignUpActivity" />
-        <activity android:name=".Activity.UpdateMyProfileActivity"></activity>
+        <activity android:name=".Activity.UpdateMyProfileActivity" />
+        <activity android:name=".Activity.CardManageActivity"></activity>
     </application>
 
 </manifest>
