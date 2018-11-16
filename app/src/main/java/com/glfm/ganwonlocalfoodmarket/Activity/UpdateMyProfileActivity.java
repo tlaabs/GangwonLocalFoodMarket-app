@@ -39,6 +39,8 @@ public class UpdateMyProfileActivity extends AppCompatActivity {
 
     private Context mContext;
     private RetroClient retroClient;
+
+    private UserVO gUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,13 +66,13 @@ public class UpdateMyProfileActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData){
-                    UserVO user = ((UserVO) receivedData);
-                    idBox.setText(user.getId());
-                    pwdBox.setText(user.getPwd());
-                    nameBox.setText(user.getName());
-                    phoneBox.setText(user.getPhone());
-                    emailBox.setText(user.getEmail());
-                    addressBox.setText(user.getAddress());
+                    gUser = ((UserVO) receivedData);
+                    idBox.setText(gUser.getId());
+                    pwdBox.setText(gUser.getPwd());
+                    nameBox.setText(gUser.getName());
+                    phoneBox.setText(gUser.getPhone());
+                    emailBox.setText(gUser.getEmail());
+                    addressBox.setText(gUser.getAddress());
             }
 
             @Override
@@ -89,6 +91,7 @@ public class UpdateMyProfileActivity extends AppCompatActivity {
         user.setPhone(phoneBox.getText().toString());
         user.setEmail(emailBox.getText().toString());
         user.setAddress(addressBox.getText().toString());
+        user.setCard(gUser.getCard());
 
         retroClient.updateProfile(user, new RetroCallback() {
             @Override
