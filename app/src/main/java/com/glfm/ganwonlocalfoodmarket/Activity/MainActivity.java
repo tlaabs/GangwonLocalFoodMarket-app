@@ -1,7 +1,6 @@
 package com.glfm.ganwonlocalfoodmarket.Activity;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.NavigationView;
@@ -14,15 +13,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.request.RequestOptions;
 import com.glfm.ganwonlocalfoodmarket.Adapter.FarmAdapter;
 import com.glfm.ganwonlocalfoodmarket.Object.FarmItem;
 import com.glfm.ganwonlocalfoodmarket.R;
+import com.glfm.ganwonlocalfoodmarket.Util.UserLoginSession;
 import com.opencsv.CSVReader;
 
 import java.io.IOException;
@@ -31,9 +35,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener{
@@ -44,10 +48,13 @@ public class MainActivity extends AppCompatActivity implements
     private Button searchBtn;
     private RecyclerView list;
 
+    private ImageView navMyImg;
+
     private ArrayList<FarmItem> farmList = new ArrayList<FarmItem>();
     private ArrayList<FarmItem> searchFarmList = new ArrayList<FarmItem>();
 
     NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        iniNavItem();
         initView();
+        iniNavItem();
 
 
 
@@ -79,7 +86,25 @@ public class MainActivity extends AppCompatActivity implements
     }
     private void iniNavItem(){
         navigationView.getMenu().clear();
-        navigationView.inflateMenu(R.menu.activity_main_drawer);
+        if((UserLoginSession.getSession().getType()).equals("customer")) {
+            navigationView.inflateMenu(R.menu.customer_drawer);
+        }else{
+            navigationView.inflateMenu(R.menu.seller_drawer);
+        }
+        navMyImg = navigationView.getHeaderView(0).findViewById(R.id.nav_my_img);
+
+        Glide.with(this)
+                .load(R.drawable.man)
+                .apply(RequestOptions.circleCropTransform())
+                .apply(RequestOptions.centerCropTransform())
+                .apply(RequestOptions.overrideOf(50,50))
+                .into(navMyImg);
+
+        TextView navMyId = navigationView.getHeaderView(0).findViewById(R.id.nav_my_id);
+        navMyId.setText(UserLoginSession.getSession().getUser());
+
+
+
     }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

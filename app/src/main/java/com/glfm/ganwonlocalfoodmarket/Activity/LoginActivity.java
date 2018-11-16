@@ -20,8 +20,11 @@ import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroCallback;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroClient;
 import com.glfm.ganwonlocalfoodmarket.Util.UserLoginSession;
 
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 
 public class LoginActivity extends AppCompatActivity {
     final static String LOG = "LoginActivity";
@@ -52,9 +55,14 @@ public class LoginActivity extends AppCompatActivity {
         //pref 로드
         SharedPreferences prefs = getSharedPreferences("glfm", MODE_PRIVATE);
         String id = prefs.getString("id", "");
+        String type = prefs.getString("type", "");
+
         if(id == null || id.equals("")){//이전 로그인한 적이 없음
         }else{
-            UserLoginSession.setUser(id);//세션 저장
+            UserLoginSession.getSession().setUser(id);//세션 저장
+            UserLoginSession.getSession().setType(type);//세션 저장
+            
+            Log.d("LoginActivity",UserLoginSession.getUser());
             Intent i = new Intent(mContext, MainActivity.class);
             startActivity(i);
             finish();
@@ -94,20 +102,34 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSuccess(int code, Object receivedData) {
-                Log.d(LOG, "성공");
-                Toast.makeText(getApplicationContext(),"로그인!",Toast.LENGTH_SHORT).show();
-                //Preference 작업 (첫 로그인시, 한번 로그인하면 자동로그인됨)
-                SharedPreferences prefs = getSharedPreferences("glfm", MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("id", obj.getId());
-                editor.commit();
-                //넘겨줄때 아이디값 넘겨주자. 자동로그인도 구현해두자.(이건 onResume? oncreate에 넣어야할듯)
-                //세션에 저장
-                UserLoginSession.setUser(obj.getId());
-                Intent  i = new Intent(mContext, MainActivity.class);
-                startActivity(i);
-                finish();
+            public void onSuccess(int code, Object receivedData){
+                try {
+                    ResponseBody body = ((ResponseBody) receivedData);
+                    String responseJSON = body.string();
+
+                    JSONObject jObj1 = new JSONObject(responseJSON);
+                    JSONObject jObj2 = jObj1.getJSONObject("results");
+                    String userId = jObj2.getString("id");
+                    String userType = jObj2.getString("type");
+
+                    Log.d(LOG, "성공");
+                    Toast.makeText(getApplicationContext(), "로그인!", Toast.LENGTH_SHORT).show();
+                    //Preference 작업 (첫 로그인시, 한번 로그인하면 자동로그인됨)
+                    SharedPreferences prefs = getSharedPreferences("glfm", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("id", userId);
+                    editor.putString("type", userType);
+
+                    editor.commit();
+                    //넘겨줄때 아이디값 넘겨주자. 자동로그인도 구현해두자.(이건 onResume? oncreate에 넣어야할듯)
+                    //세션에 저장
+                    UserLoginSession.getSession().setUser(userId);
+                    UserLoginSession.getSession().setType(userType);
+
+                    Intent i = new Intent(mContext, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }catch(Exception e){}
             }
 
             @Override
