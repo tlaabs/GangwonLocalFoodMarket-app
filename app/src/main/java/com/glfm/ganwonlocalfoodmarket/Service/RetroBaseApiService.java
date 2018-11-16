@@ -2,8 +2,10 @@ package com.glfm.ganwonlocalfoodmarket.Service;
 
 import com.glfm.ganwonlocalfoodmarket.Object.BuyVO;
 import com.glfm.ganwonlocalfoodmarket.Object.Login;
+import com.glfm.ganwonlocalfoodmarket.Object.OnlyIdDTO;
 import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
 import com.glfm.ganwonlocalfoodmarket.Object.SignUp;
+import com.glfm.ganwonlocalfoodmarket.Object.UserVO;
 
 import java.util.List;
 
@@ -20,9 +22,9 @@ import retrofit2.http.Query;
 
 public interface RetroBaseApiService {
 
-//    final String Base_URL = "http://172.30.1.52:8080/";
+    final String Base_URL = "http://172.30.1.52:8080/";
 //    final String Base_URL = "http://192.168.43.97:8080/";
-    final String Base_URL = "http://172.16.22.9:8080/";
+//    final String Base_URL = "http://172.16.22.9:8080/";
 
     //회원가입
     @POST("user/signup")
@@ -31,6 +33,15 @@ public interface RetroBaseApiService {
     //로그인
     @POST("user/login")
     Call<ResponseBody> login(@Body Login dto);
+
+    //유저 프로필 조회
+    @POST("user/get/profile")
+    Call<UserVO> getProfile(@Body OnlyIdDTO dto);
+
+    //유저 프로필 업데이트
+    @POST("user/update/profile")
+    Call<ResponseBody> updateProfile(@Body UserVO vo);
+
 
     @POST("order/buy")
     Call<BuyVO> order(@Body BuyVO order);

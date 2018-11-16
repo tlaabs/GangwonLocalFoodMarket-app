@@ -1,6 +1,8 @@
 package com.glfm.ganwonlocalfoodmarket.Activity;
 
 import android.content.ContentValues;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.NavigationView;
@@ -112,11 +114,27 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         //first layout 메뉴 버튼이 눌리면 실행됨
-        if (id == R.id.nav_first_layout) {
-            Toast.makeText(getApplicationContext(),"1",Toast.LENGTH_SHORT).show();
+        if (id == R.id.nav_logout) {
+            Toast.makeText(getApplicationContext(),"로그아웃",Toast.LENGTH_SHORT).show();
 
-        } else if (id == R.id.nav_second_layout) {
-            Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
+            //Pref 지우고, Session 초기화
+            SharedPreferences prefs = getSharedPreferences("glfm", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("id", "");
+            editor.putString("type", "");
+
+            editor.commit();
+
+            UserLoginSession.close();
+
+            //Login창으로
+            Intent i = new Intent(this,LoginActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_my_account) {
+            Intent i = new Intent(this,UpdateMyProfileActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

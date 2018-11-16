@@ -34,4 +34,8 @@ public class UserLoginSession {
         else
             return session;
     }
+
+    public static void close(){
+        if(session != null) session = null;
+    }
 }

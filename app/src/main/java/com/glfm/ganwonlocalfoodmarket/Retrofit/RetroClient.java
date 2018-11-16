@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.glfm.ganwonlocalfoodmarket.Object.BuyVO;
 import com.glfm.ganwonlocalfoodmarket.Object.Login;
+import com.glfm.ganwonlocalfoodmarket.Object.OnlyIdDTO;
 import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
 import com.glfm.ganwonlocalfoodmarket.Object.SignUp;
+import com.glfm.ganwonlocalfoodmarket.Object.UserVO;
 import com.glfm.ganwonlocalfoodmarket.Service.RetroBaseApiService;
 
 import java.util.List;
@@ -202,6 +204,47 @@ public class RetroClient {
     //로그인
     public void login(Login dto, final RetroCallback callback) {
         apiService.login(dto).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+
+    //유저 프로필 가져오기
+    public void getProfile(OnlyIdDTO dto, final RetroCallback callback) {
+        apiService.getProfile(dto).enqueue(new Callback<UserVO>() {
+
+            @Override
+            public void onResponse(Call<UserVO> call, Response<UserVO> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserVO> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //유저 프로필 업데이트
+    public void updateProfile(UserVO dto, final RetroCallback callback) {
+        apiService.updateProfile(dto).enqueue(new Callback<ResponseBody>() {
 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
