@@ -61,12 +61,14 @@ public class RetroClient {
         return retrofit.create(service);
     }
 
-    public void uploadForm(MultipartBody.Part file,
+    public void uploadProduct(MultipartBody.Part file,
                            String id,
                            String name,
+                           String detail,
                            String unit,
-                           String price, final RetroCallback callback) {
-        apiService.uploadForm(file,id,name,unit,price).enqueue(new Callback<ResponseBody>() {
+                           String price,
+                           final RetroCallback callback) {
+        apiService.uploadProduct(file,id,name,detail,unit,price).enqueue(new Callback<ResponseBody>() {
 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

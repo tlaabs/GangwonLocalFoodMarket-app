@@ -3,14 +3,24 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first_layout"
+            android:id="@+id/nav_my_account"
             android:icon="@drawable/ic_launcher_background"
-            android:title="first layout"
+            android:title="나의 계정"
             />
         <item
-            android:id="@+id/nav_second_layout"
+            android:id="@+id/nav_product"
             android:icon="@drawable/ic_launcher_background"
-            android:title="second layout"
+            android:title="상품 관리"
+            />
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="주문 관리"
+            />
+        <item
+            android:id="@+id/nav_diary"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="농장 일기"
             android:visible="false"
             />
         <item

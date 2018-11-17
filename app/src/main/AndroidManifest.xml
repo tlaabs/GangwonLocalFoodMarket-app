@@ -38,9 +38,6 @@
             android:name=".Activity.UpdateStateActivity"
             android:theme="@style/NoTitleThemeDialog" />
         <activity android:name=".Activity.UserMyOrderActivity" />
-        <activity
-            android:name=".Activity.DrawerActivity"
-            android:theme="@style/NoTitleTheme" />
         <activity android:name=".Activity.SignUpActivity" />
         <activity android:name=".Activity.UpdateMyProfileActivity" />
         <activity android:name=".Activity.CardManageActivity"></activity>

@@ -5,10 +5,19 @@ import java.io.Serializable;
 public class ProductItem implements Serializable{
     private String id;
     private String name;
+    private String detail;
     private String unit;
     private String price;
     private String quantity;
     private String img;
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
     public String getUnit() {
         return unit;

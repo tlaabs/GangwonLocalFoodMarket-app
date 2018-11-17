@@ -42,12 +42,24 @@ public interface RetroBaseApiService {
     @POST("user/update/profile")
     Call<ResponseBody> updateProfile(@Body UserVO vo);
 
+    //상품 관리 - 업데이트
+    @Multipart
+    @POST("product/edit")
+    Call<ResponseBody> uploadProduct(@Part MultipartBody.Part file,
+                                     @Query("id") String id,
+                                     @Query("name") String name,
+                                     @Query("detail") String detail,
+                                     @Query("unit") String unit,
+                                     @Query("price") String price
+    );
+
+    //상품 가져오기
+    @GET("product/get")
+    Call<ProductItem> readProduct(@Query("id") String id);
 
     @POST("order/buy")
     Call<BuyVO> order(@Body BuyVO order);
-//
-    @GET("product/get")
-    Call<ProductItem> readProduct(@Query("id") String id);
+
 
     @GET("order/state2")
     Call<BuyVO> getState2(@Query("order_id") String order_id);
@@ -55,15 +67,6 @@ public interface RetroBaseApiService {
     @GET("order/state")
     Call<ResponseBody> updateState(@Query("order_id") String id,
                                    @Query("state") String state);
-
-    @Multipart
-    @POST("product/add")
-    Call<ResponseBody> uploadForm(@Part MultipartBody.Part file,
-                                  @Query("id") String id,
-                                  @Query("name") String name,
-                                  @Query("unit") String unit,
-                                  @Query("price") String price);
-
     @GET("order/gets")
     Call<List<BuyVO>> getOrders(@Query("product_id") String product_id);
 //

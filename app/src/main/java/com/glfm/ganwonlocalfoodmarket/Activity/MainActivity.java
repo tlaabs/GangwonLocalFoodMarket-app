@@ -42,7 +42,7 @@ import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener{
+        NavigationView.OnNavigationItemSelectedListener {
 
     private SQLiteDatabase db;
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
 
         toggle.syncState();
@@ -79,18 +79,18 @@ public class MainActivity extends AppCompatActivity implements
         iniNavItem();
 
 
-
         initDatabase();
         insertDataFromFile();
         farmList = getFarmListFromDB();
         initList(farmList);
 
     }
-    private void iniNavItem(){
+
+    private void iniNavItem() {
         navigationView.getMenu().clear();
-        if((UserLoginSession.getSession().getType()).equals("customer")) {
+        if ((UserLoginSession.getSession().getType()).equals("customer")) {
             navigationView.inflateMenu(R.menu.customer_drawer);
-        }else{
+        } else {
             navigationView.inflateMenu(R.menu.seller_drawer);
         }
         navMyImg = navigationView.getHeaderView(0).findViewById(R.id.nav_my_img);
@@ -99,15 +99,15 @@ public class MainActivity extends AppCompatActivity implements
                 .load(R.drawable.man)
                 .apply(RequestOptions.circleCropTransform())
                 .apply(RequestOptions.centerCropTransform())
-                .apply(RequestOptions.overrideOf(50,50))
+                .apply(RequestOptions.overrideOf(50, 50))
                 .into(navMyImg);
 
         TextView navMyId = navigationView.getHeaderView(0).findViewById(R.id.nav_my_id);
         navMyId.setText(UserLoginSession.getSession().getUser());
 
 
-
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements
 
         //first layout 메뉴 버튼이 눌리면 실행됨
         if (id == R.id.nav_logout) {
-            Toast.makeText(getApplicationContext(),"로그아웃",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "로그아웃", Toast.LENGTH_SHORT).show();
 
             //Pref 지우고, Session 초기화
             SharedPreferences prefs = getSharedPreferences("glfm", MODE_PRIVATE);
@@ -128,15 +128,18 @@ public class MainActivity extends AppCompatActivity implements
             UserLoginSession.close();
 
             //Login창으로
-            Intent i = new Intent(this,LoginActivity.class);
+            Intent i = new Intent(this, LoginActivity.class);
             startActivity(i);
             finish();
 
         } else if (id == R.id.nav_my_account) {
-            Intent i = new Intent(this,UpdateMyProfileActivity.class);
+            Intent i = new Intent(this, UpdateMyProfileActivity.class);
             startActivity(i);
-         }else if (id == R.id.nav_card_manage) {
-            Intent i = new Intent(this,CardManageActivity.class);
+        } else if (id == R.id.nav_card_manage) {
+            Intent i = new Intent(this, CardManageActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_product) {
+            Intent i = new Intent(this, ProductManageActivity.class);
             startActivity(i);
         }
 
@@ -144,7 +147,8 @@ public class MainActivity extends AppCompatActivity implements
         drawer.closeDrawer(GravityCompat.START);//Drawer를 닫음
         return true;
     }
-    private void initView(){
+
+    private void initView() {
         searchInput = findViewById(R.id.search_input);
         searchBtn = findViewById(R.id.search_btn);
         list = findViewById(R.id.list);
@@ -187,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements
                 recordValues.put("PRODUCT", nextLine[11]);
                 recordValues.put("ADDRESS", nextLine[9]);
 
-                Log.d("sss",nextLine[0] + "|" + nextLine[15] + "|" + nextLine[9] + "|" + nextLine[11]);
+                Log.d("sss", nextLine[0] + "|" + nextLine[15] + "|" + nextLine[9] + "|" + nextLine[11]);
 
                 db.insert(getString(R.string.table_name), null, recordValues);
             }
@@ -226,28 +230,28 @@ public class MainActivity extends AppCompatActivity implements
         return arr;
     }
 
-    private void initList(ArrayList<FarmItem> farmList){
+    private void initList(ArrayList<FarmItem> farmList) {
         list.setLayoutManager(new LinearLayoutManager(this));
-        list.setAdapter(new FarmAdapter(this,farmList));
+        list.setAdapter(new FarmAdapter(this, farmList));
         list.invalidate();
     }
 
     @OnClick(R.id.search_btn)
-    public void searchBtnClicked(){
+    public void searchBtnClicked() {
         String keyword = searchInput.getText().toString();
-        if(keyword.equals("")){
+        if (keyword.equals("")) {
             initList(farmList);
-        }else{
+        } else {
             initList(filterSearch(keyword));
         }
     }
 
-    private ArrayList<FarmItem> filterSearch(String keyword){
+    private ArrayList<FarmItem> filterSearch(String keyword) {
         ArrayList<FarmItem> arr = new ArrayList<FarmItem>();
 
-        for(int i = 0 ; i < farmList.size(); i++){
+        for (int i = 0; i < farmList.size(); i++) {
             FarmItem item = farmList.get(i);
-            if(item.getProduct().equals(keyword)){
+            if (item.getProduct().equals(keyword)) {
                 arr.add(item);
             }
         }
