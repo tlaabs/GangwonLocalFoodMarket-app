@@ -7,11 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.bumptech.glide.Glide;
-import com.glfm.ganwonlocalfoodmarket.Adapter.FarmAdapter;
 import com.glfm.ganwonlocalfoodmarket.Adapter.OrderAdapter;
-import com.glfm.ganwonlocalfoodmarket.Object.BuyVO;
-import com.glfm.ganwonlocalfoodmarket.Object.FarmItem;
+import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
 import com.glfm.ganwonlocalfoodmarket.R;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroCallback;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroClient;
@@ -27,7 +24,7 @@ public class OrderManageActivity extends AppCompatActivity {
 
     private RecyclerView list;
 
-    ArrayList<BuyVO> orderList;
+    ArrayList<OrderVO> orderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +47,7 @@ public class OrderManageActivity extends AppCompatActivity {
         list = findViewById(R.id.list);
     }
 
-    private void initList(ArrayList<BuyVO> arr){
+    private void initList(ArrayList<OrderVO> arr){
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(new OrderAdapter(this,arr));
         list.invalidate();
@@ -65,7 +62,7 @@ public class OrderManageActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-                orderList = (ArrayList<BuyVO>) receivedData;
+                orderList = (ArrayList<OrderVO>) receivedData;
                 int size = orderList.size();
 //                if(size == 0){
 //                    Log.d("kokz", size+ "개");

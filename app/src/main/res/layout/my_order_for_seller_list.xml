@@ -32,13 +32,6 @@
             android:text="주문접수일"
             android:gravity="center"
             />
-        <TextView
-            android:id="@+id/product_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="품명"
-            android:gravity="center"
-            />
 
         <TextView
             android:id="@+id/state"

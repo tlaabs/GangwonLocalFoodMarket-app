@@ -1,33 +1,32 @@
 package com.glfm.ganwonlocalfoodmarket.Activity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
+import android.widget.Button;
 
 import com.glfm.ganwonlocalfoodmarket.Adapter.MyOrderAdapter;
+import com.glfm.ganwonlocalfoodmarket.Adapter.MyOrderForSellerAdapter;
 import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
 import com.glfm.ganwonlocalfoodmarket.R;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroCallback;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroClient;
 import com.glfm.ganwonlocalfoodmarket.Util.UserLoginSession;
-
-import org.json.JSONObject;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
 
-import okhttp3.ResponseBody;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class UserMyOrderActivity extends AppCompatActivity {
-    final static String LOG = "UserMyOrderActivity";
-    private SQLiteDatabase db;
+public class OrderManageForSeller extends AppCompatActivity {
 
+    final static String LOG = "OrderManageForSeller";
     ArrayList<OrderVO> orderList;
 
     private RecyclerView list;
@@ -37,17 +36,18 @@ public class UserMyOrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_my_order);
+        setContentView(R.layout.activity_manage_order_seller);
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
         init();
         initView();
     }
 
+    //seller 전용
     @Override
     protected void onResume() {
         super.onResume();
-        retroClient.getOrdersByCustomer(UserLoginSession.getSession().getUser(), new RetroCallback() {
+        retroClient.getOrders(UserLoginSession.getSession().getUser(), new RetroCallback() {
             @Override
             public void onError(Throwable t) {
                 Log.d(LOG, t.toString());
@@ -83,7 +83,7 @@ public class UserMyOrderActivity extends AppCompatActivity {
 
     private void initList(ArrayList<OrderVO> arr) {
         list.setLayoutManager(new LinearLayoutManager(this));
-        list.setAdapter(new MyOrderAdapter(this, arr));
+        list.setAdapter(new MyOrderForSellerAdapter(this, arr));
         list.invalidate();
     }
 

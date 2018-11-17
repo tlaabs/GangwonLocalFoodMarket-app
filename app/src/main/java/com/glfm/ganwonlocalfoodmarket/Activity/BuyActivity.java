@@ -6,24 +6,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.glfm.ganwonlocalfoodmarket.Object.BuyVO;
+import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
+import com.glfm.ganwonlocalfoodmarket.Object.OnlyIdDTO;
 import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
+import com.glfm.ganwonlocalfoodmarket.Object.UserVO;
 import com.glfm.ganwonlocalfoodmarket.R;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroCallback;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroClient;
-import com.opencsv.CSVReader;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import com.glfm.ganwonlocalfoodmarket.Util.UserLoginSession;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,10 +34,14 @@ public class BuyActivity extends AppCompatActivity {
     TextView productNameView;
     @BindView(R.id.product_quantity)
     TextView productQuantitiyView;
+    @BindView(R.id.phone)
+    EditText phoneView;
+    @BindView(R.id.email)
+    EditText emailView;
     @BindView(R.id.address)
     EditText addressView;
-    @BindView(R.id.who)
-    EditText whoView;
+    @BindView(R.id.card)
+    TextView cardView;
     @BindView(R.id.total)
     TextView totalView;
     @BindView(R.id.submit)
@@ -60,7 +59,7 @@ public class BuyActivity extends AppCompatActivity {
         init();
         initView();
 
-
+        loadUserData();
     }
 
     public void init() {
@@ -71,19 +70,49 @@ public class BuyActivity extends AppCompatActivity {
     public void initView() {
         productNameView.setText("품목 : " + item.getName());
         productQuantitiyView.setText("수량 : " + item.getQuantity());
+
         int quantity_int = Integer.parseInt(item.getQuantity());
         int price_int = Integer.parseInt(item.getPrice());
         totalView.setText("총 금액 : " + quantity_int * price_int + "원");
     }
 
+    private void loadUserData(){
+        OnlyIdDTO dto = new OnlyIdDTO();
+        dto.setId(UserLoginSession.getSession().getUser());
+        retroClient.getProfile(dto, new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+                Log.d(LOG, t.toString());
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData){
+                UserVO gUser = ((UserVO) receivedData);
+                addressView.setText(gUser.getAddress());
+                phoneView.setText(gUser.getPhone());
+                emailView.setText(gUser.getEmail());
+                addressView.setText(gUser.getAddress());
+                cardView.setText(gUser.getCard());
+            }
+
+            @Override
+            public void onFailure(int code) {
+                Log.d(LOG, "실패");
+            }
+        });
+    }
+
     @OnClick(R.id.submit)
     public void submit() {
-        BuyVO orderItem = new BuyVO();
+        OrderVO orderItem = new OrderVO();
+        orderItem.setUser_id(UserLoginSession.getSession().getUser());
         orderItem.setProduct_id(item.getId());
         orderItem.setProduct_name(item.getName());
-        orderItem.setOrder_name(whoView.getText().toString());
         orderItem.setQuantity(item.getQuantity());
+        orderItem.setEmail(emailView.getText().toString());
+        orderItem.setPhone(phoneView.getText().toString());
         orderItem.setAddress(addressView.getText().toString());
+        orderItem.setCard(cardView.getText().toString());
         int quantity_int = Integer.parseInt(item.getQuantity());
         int price_int = Integer.parseInt(item.getPrice());
         orderItem.setTotal(quantity_int * price_int + "");
@@ -96,9 +125,7 @@ public class BuyActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-                BuyVO res = (BuyVO) receivedData;
-                insertDataToDB(res);
-                Log.d(LOG, "성공" + res.getId());
+                Toast.makeText(getApplicationContext(),"주문 완료!",Toast.LENGTH_SHORT).show();
                 finish();
             }
 
@@ -108,27 +135,4 @@ public class BuyActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    private void insertDataToDB(BuyVO vo) {
-        SQLiteDatabase db = openOrCreateDatabase(getString(R.string.db_name), MODE_PRIVATE, null);
-        ContentValues recordValues;
-        try {
-
-            recordValues = new ContentValues();
-
-            recordValues.put("ID", vo.getId());
-            recordValues.put("PRODUCT", vo.getProduct_name());
-            recordValues.put("QUANTITY", vo.getQuantity());
-            recordValues.put("PRICE", vo.getTotal());
-
-            db.insert("tbl_order", null, recordValues);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally
-        {
-            db.close();
-        }
-    }
-
 }

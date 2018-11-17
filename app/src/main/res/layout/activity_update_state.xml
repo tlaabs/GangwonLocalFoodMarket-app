@@ -6,7 +6,7 @@
     android:layout_height="300dp"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".Activity.UpdateStateActivity"
+    tools:context=".Activity.OrderManageForSeller"
     android:gravity="center"
     >
 

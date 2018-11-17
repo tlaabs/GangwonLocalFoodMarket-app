@@ -46,6 +46,7 @@ public class DetailMarketActivity extends AppCompatActivity {
     private TextView productNameView;
     private TextView productUnitView;
     private TextView productPriceView;
+    private TextView productDetail;
     private EditText productQuantityView;
     private Button buyBtn;
 
@@ -80,13 +81,14 @@ public class DetailMarketActivity extends AppCompatActivity {
         productNameView = findViewById(R.id.product_name);
         productUnitView = findViewById(R.id.product_unit);
         productPriceView = findViewById(R.id.product_price);
+        productDetail = findViewById(R.id.product_detail);
         productQuantityView = findViewById(R.id.product_quantity);
         buyBtn = findViewById(R.id.buy);
 
     }
 
     private void isAvailableProduct(){
-        retroClient.readProduct(item.getId(), new RetroCallback() {
+        retroClient.readProductBySellerId(item.getId(), new RetroCallback() {
             @Override
             public void onError(Throwable t) {
                 Log.d(LOG, t.toString());
@@ -108,8 +110,10 @@ public class DetailMarketActivity extends AppCompatActivity {
                             .into(prodcutImgView);
 
                     productNameView.setText(response.getName());
+                    productDetail.setText(response.getDetail());
                     productUnitView.setText(response.getUnit());
                     productPriceView.setText(response.getPrice());
+
 
                 }
             }

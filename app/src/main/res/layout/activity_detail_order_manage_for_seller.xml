@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.BuyActivity">
+    tools:context=".Activity.DetailOrderManageForSeller">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,25 +13,64 @@
         android:padding="15dp">
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="주문하신 분" />
+
+        <TextView
+            android:id="@+id/order_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/box_entire_line"
+            android:padding="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="품명" />
+
+        <TextView
             android:id="@+id/product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="품목 : " />
+            android:background="@drawable/box_entire_line"
+            android:padding="15dp" />
+
 
         <TextView
-            android:id="@+id/product_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="수량" />
+
+        <TextView
+            android:id="@+id/quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="수량 : " />
+            android:background="@drawable/box_entire_line"
+            android:padding="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="총 금액" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/box_entire_line"
+            android:padding="15dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="연락처" />
 
-        <EditText
+        <TextView
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,9 +81,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="이메일" />
-
-        <EditText
+            android:text="이메일"
+            />
+        <TextView
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,12 +91,13 @@
             android:background="@drawable/box_entire_line"
             android:padding="15dp" />
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="배송지 주소" />
 
-        <EditText
+        <TextView
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,29 +108,18 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="결제 수단 (신용카드)" />
-
-        <TextView
-            android:id="@+id/card"
+            android:text="상태" />
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/box_entire_line"
-            android:padding="15dp" />
-
-        <TextView
-            android:id="@+id/total"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="총 금액 : "
-
-            />
+            android:layout_marginBottom="20dp"
+            ></com.jaredrummler.materialspinner.MaterialSpinner>
 
         <Button
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="주문" />
+            android:text="확인" />
     </LinearLayout>
 </ScrollView>

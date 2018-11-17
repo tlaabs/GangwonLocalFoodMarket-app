@@ -34,13 +34,12 @@
         <activity android:name=".Activity.ProductManageActivity" />
         <activity android:name=".Activity.BuyActivity" />
         <activity android:name=".Activity.OrderManageActivity" />
-        <activity
-            android:name=".Activity.UpdateStateActivity"
-            android:theme="@style/NoTitleThemeDialog" />
+        <activity android:name=".Activity.OrderManageForSeller" />
         <activity android:name=".Activity.UserMyOrderActivity" />
         <activity android:name=".Activity.SignUpActivity" />
         <activity android:name=".Activity.UpdateMyProfileActivity" />
-        <activity android:name=".Activity.CardManageActivity"></activity>
+        <activity android:name=".Activity.CardManageActivity" />
+        <activity android:name=".Activity.DetailOrderManageForSeller"></activity>
     </application>
 
 </manifest>

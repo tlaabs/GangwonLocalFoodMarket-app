@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.glfm.ganwonlocalfoodmarket.Activity.UpdateStateActivity;
-import com.glfm.ganwonlocalfoodmarket.Object.BuyVO;
-import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
+import com.glfm.ganwonlocalfoodmarket.Activity.OrderManageForSeller;
+import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
 import com.glfm.ganwonlocalfoodmarket.R;
 
 import java.util.List;
@@ -21,9 +20,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     private Context parent;
 
-    private List<BuyVO> mOrdertList;
+    private List<OrderVO> mOrdertList;
 
-    public OrderAdapter(Context parent, List<BuyVO> list){
+    public OrderAdapter(Context parent, List<OrderVO> list){
         this.parent = parent;
         this.mOrdertList = list;
     }
@@ -43,17 +42,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        final BuyVO item = mOrdertList.get(i);
+        final OrderVO item = mOrdertList.get(i);
         viewHolder.itemBoxView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(parent, UpdateStateActivity.class);
+                Intent i = new Intent(parent, OrderManageForSeller.class);
                 i.putExtra("item",item);
                 parent.startActivity(i);
             }
         });
-        viewHolder.orderIdView.setText(item.getId());
-        viewHolder.whoView.setText(item.getOrder_name());
+        viewHolder.orderIdView.setText(item.getAddress());
+        viewHolder.whoView.setText(item.getCard());
         viewHolder.productNameView.setText(item.getProduct_name());
         viewHolder.quantityView.setText(item.getQuantity());
         viewHolder.totalView.setText(item.getTotal());

@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.request.RequestOptions;
 import com.glfm.ganwonlocalfoodmarket.Adapter.FarmAdapter;
 import com.glfm.ganwonlocalfoodmarket.Object.FarmItem;
@@ -39,7 +38,6 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -140,6 +138,12 @@ public class MainActivity extends AppCompatActivity implements
             startActivity(i);
         } else if (id == R.id.nav_product) {
             Intent i = new Intent(this, ProductManageActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_order_check) {
+            Intent i = new Intent(this, UserMyOrderActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_order_manage) {
+            Intent i = new Intent(this, OrderManageForSeller.class);
             startActivity(i);
         }
 

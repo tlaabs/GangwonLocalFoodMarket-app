@@ -2,7 +2,7 @@ package com.glfm.ganwonlocalfoodmarket.Retrofit;
 
 import android.content.Context;
 
-import com.glfm.ganwonlocalfoodmarket.Object.BuyVO;
+import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
 import com.glfm.ganwonlocalfoodmarket.Object.Login;
 import com.glfm.ganwonlocalfoodmarket.Object.OnlyIdDTO;
 import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
@@ -105,11 +105,11 @@ public class RetroClient {
         });
     }
 
-    public void order(BuyVO order, final RetroCallback callback) {
-        apiService.order(order).enqueue(new Callback<BuyVO>() {
+    public void readProductBySellerId(String id, final RetroCallback callback) {
+        apiService.readProductBySellerId(id).enqueue(new Callback<ProductItem>() {
 
             @Override
-            public void onResponse(Call<BuyVO> call, Response<BuyVO> response) {
+            public void onResponse(Call<ProductItem> call, Response<ProductItem> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.code(), response.body());
                 } else {
@@ -118,17 +118,36 @@ public class RetroClient {
             }
 
             @Override
-            public void onFailure(Call<BuyVO> call, Throwable t) {
+            public void onFailure(Call<ProductItem> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void order(OrderVO order, final RetroCallback callback) {
+        apiService.order(order).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 callback.onError(t);
             }
         });
     }
 
     public void getOrders(String product_id, final RetroCallback callback) {
-        apiService.getOrders(product_id).enqueue(new Callback<List<BuyVO>>() {
+        apiService.getOrders(product_id).enqueue(new Callback<List<OrderVO>>() {
 
             @Override
-            public void onResponse(Call<List<BuyVO>> call, Response<List<BuyVO>> response) {
+            public void onResponse(Call<List<OrderVO>> call, Response<List<OrderVO>> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.code(), response.body());
                 } else {
@@ -137,7 +156,26 @@ public class RetroClient {
             }
 
             @Override
-            public void onFailure(Call<List<BuyVO>> call, Throwable t) {
+            public void onFailure(Call<List<OrderVO>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void getOrdersByCustomer(String user_id, final RetroCallback callback) {
+        apiService.getOrdersByCustomer(user_id).enqueue(new Callback<List<OrderVO>>() {
+
+            @Override
+            public void onResponse(Call<List<OrderVO>> call, Response<List<OrderVO>> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<OrderVO>> call, Throwable t) {
                 callback.onError(t);
             }
         });
@@ -164,10 +202,10 @@ public class RetroClient {
 
 
     public void getState2(String order_id, final RetroCallback callback) {
-        apiService.getState2(order_id).enqueue(new Callback<BuyVO>() {
+        apiService.getState2(order_id).enqueue(new Callback<OrderVO>() {
 
             @Override
-            public void onResponse(Call<BuyVO> call, Response<BuyVO> response) {
+            public void onResponse(Call<OrderVO> call, Response<OrderVO> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.code(), response.body());
                 } else {
@@ -176,7 +214,7 @@ public class RetroClient {
             }
 
             @Override
-            public void onFailure(Call<BuyVO> call, Throwable t) {
+            public void onFailure(Call<OrderVO> call, Throwable t) {
                 callback.onError(t);
             }
         });

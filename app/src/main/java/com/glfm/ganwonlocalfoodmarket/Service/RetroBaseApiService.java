@@ -1,6 +1,6 @@
 package com.glfm.ganwonlocalfoodmarket.Service;
 
-import com.glfm.ganwonlocalfoodmarket.Object.BuyVO;
+import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
 import com.glfm.ganwonlocalfoodmarket.Object.Login;
 import com.glfm.ganwonlocalfoodmarket.Object.OnlyIdDTO;
 import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
@@ -53,22 +53,33 @@ public interface RetroBaseApiService {
                                      @Query("price") String price
     );
 
-    //상품 가져오기
+    //상품 가져오기 - seller
     @GET("product/get")
     Call<ProductItem> readProduct(@Query("id") String id);
 
-    @POST("order/buy")
-    Call<BuyVO> order(@Body BuyVO order);
+    //상품 가져오기 - customer
+    @GET("product/getBySellerId")
+    Call<ProductItem> readProductBySellerId(@Query("id") String id);
 
+    //상품 구매
+    @POST("order/buy")
+    Call<ResponseBody> order(@Body OrderVO order);
+
+    //주문 조회 - 고객
+    @GET("order/getsByCustomer")
+    Call<List<OrderVO>> getOrdersByCustomer(@Query("user_id") String user_id);
+
+    //주문 조회 - Seller
+    @GET("order/gets")
+    Call<List<OrderVO>> getOrders(@Query("seller_id") String seller_id);
+
+    //주문 상태 변경
+    @GET("order/state")
+    Call<ResponseBody> updateState(@Query("order_id") String order_id,
+                                   @Query("state") String state);
 
     @GET("order/state2")
-    Call<BuyVO> getState2(@Query("order_id") String order_id);
-
-    @GET("order/state")
-    Call<ResponseBody> updateState(@Query("order_id") String id,
-                                   @Query("state") String state);
-    @GET("order/gets")
-    Call<List<BuyVO>> getOrders(@Query("product_id") String product_id);
+    Call<OrderVO> getState2(@Query("order_id") String order_id);
 //
 //
 }
