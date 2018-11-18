@@ -8,6 +8,25 @@ public class FarmItem implements Serializable{
     private String product;
     private String address;
 
+    private String img;
+    private String price;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public String getId() {
         return id;
     }

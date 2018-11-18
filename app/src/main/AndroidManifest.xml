@@ -36,7 +36,9 @@
         <activity android:name=".Activity.OrderManageActivity" />
         <activity android:name=".Activity.OrderManageForSeller" />
         <activity android:name=".Activity.UserMyOrderActivity" />
-        <activity android:name=".Activity.SignUpActivity" />
+        <activity android:name=".Activity.SignUpActivity"
+            android:label="회원가입"
+            />
         <activity android:name=".Activity.UpdateMyProfileActivity" />
         <activity android:name=".Activity.CardManageActivity" />
         <activity android:name=".Activity.DetailOrderManageForSeller" />

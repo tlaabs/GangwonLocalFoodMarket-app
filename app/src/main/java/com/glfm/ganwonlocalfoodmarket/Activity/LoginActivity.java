@@ -113,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                     String userType = jObj2.getString("type");
 
                     Log.d(LOG, "성공");
-                    Toast.makeText(getApplicationContext(), "로그인!", Toast.LENGTH_SHORT).show();
                     //Preference 작업 (첫 로그인시, 한번 로그인하면 자동로그인됨)
                     SharedPreferences prefs = getSharedPreferences("glfm", MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();

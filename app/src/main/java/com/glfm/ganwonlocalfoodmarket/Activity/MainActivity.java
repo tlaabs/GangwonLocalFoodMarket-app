@@ -1,6 +1,7 @@
 package com.glfm.ganwonlocalfoodmarket.Activity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -26,7 +27,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.glfm.ganwonlocalfoodmarket.Adapter.FarmAdapter;
 import com.glfm.ganwonlocalfoodmarket.Object.FarmItem;
+import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
 import com.glfm.ganwonlocalfoodmarket.R;
+import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroCallback;
+import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroClient;
 import com.glfm.ganwonlocalfoodmarket.Util.UserLoginSession;
 import com.opencsv.CSVReader;
 
@@ -42,6 +46,9 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
+    final static String LOG = "MainActivity";
+    final static int MAX_RECURSIVE = 5;
+
     private SQLiteDatabase db;
 
     private EditText searchInput;
@@ -55,11 +62,16 @@ public class MainActivity extends AppCompatActivity implements
 
     NavigationView navigationView;
 
+    private RetroClient retroClient;
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mContext = this;
+        retroClient = RetroClient.getInstance(this).createBaseApi();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -80,10 +92,41 @@ public class MainActivity extends AppCompatActivity implements
         initDatabase();
         insertDataFromFile();
         farmList = getFarmListFromDB();
-        initList(farmList);
+        recursiveGetData(0);
 
     }
+    public void recursiveGetData(int n){
+        final int nn = n;
+        if(nn == MAX_RECURSIVE) {
+            initList(farmList);
+            return;
+        }
 
+        final FarmItem item = farmList.get(nn);
+        retroClient.readProductBySellerId(item.getId(), new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+                Log.d(LOG, t.toString());
+                recursiveGetData(nn+1);
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                ProductItem orders = ((ProductItem) receivedData);
+                item.setPrice(orders.getPrice());
+                item.setImg(orders.getImg());
+                farmList.remove(nn);
+                farmList.add(nn,item);
+                recursiveGetData(nn+1);
+            }
+
+            @Override
+            public void onFailure(int code) {
+                Log.d(LOG, "실패");
+                recursiveGetData(nn+1);
+            }
+        });
+    }
     private void iniNavItem() {
         navigationView.getMenu().clear();
         if ((UserLoginSession.getSession().getType()).equals("customer")) {
@@ -94,10 +137,9 @@ public class MainActivity extends AppCompatActivity implements
         navMyImg = navigationView.getHeaderView(0).findViewById(R.id.nav_my_img);
 
         Glide.with(this)
-                .load(R.drawable.man)
-                .apply(RequestOptions.circleCropTransform())
+                .load(R.drawable.boy)
                 .apply(RequestOptions.centerCropTransform())
-                .apply(RequestOptions.overrideOf(50, 50))
+                .apply(RequestOptions.overrideOf(70, 70))
                 .into(navMyImg);
 
         TextView navMyId = navigationView.getHeaderView(0).findViewById(R.id.nav_my_id);

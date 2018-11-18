@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#e54c3c"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="검색"
             android:textColor="#ffffff"
-            android:background="@color/colorMain"
+            android:background="@drawable/round_square_background"
             />
     </LinearLayout>
 

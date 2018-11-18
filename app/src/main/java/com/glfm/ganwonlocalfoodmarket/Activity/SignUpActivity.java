@@ -24,7 +24,6 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.idBox) EditText idBox;
     @BindView(R.id.pwdBox) EditText pwdBox;
     @BindView(R.id.nameBox) EditText nameBox;
-    @BindView(R.id.back) Button backBtn;
     @BindView(R.id.signup) Button signupBtn;
 
     private Context mContext;
@@ -48,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 signUpObj = checkSignupValidation();
                 if(signUpObj == null){
-                    Toast.makeText(getApplicationContext(),"다시 확인!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"빠짐없이 입력해 주세요.",Toast.LENGTH_SHORT).show();
                 }else{ //검사 통과
                     requestSignUp(signUpObj);
                 }
@@ -81,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int code, Object receivedData) {
                 Log.d(LOG, "성공");
-                Toast.makeText(getApplicationContext(),"통과!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"가입이 완료되었습니다.",Toast.LENGTH_SHORT).show();
                 finish();
             }
 
