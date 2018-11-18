@@ -12,30 +12,46 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--프로필-->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/colorBg"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="200dp">
+            <!--프로필-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBg"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/farmer" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="이희구"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/farmer" />
+                android:id="@+id/diary"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="이희구"
-                android:textColor="#000000"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:src="@drawable/diary" />
+        </RelativeLayout>
 
         <!--상품-->
         <LinearLayout
@@ -50,13 +66,12 @@
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
                 android:text="사과"
                 android:textColor="#000000"
-                android:textSize="20dp"
-                />
+                android:textSize="20dp" />
 
             <ImageView
                 android:id="@+id/product_img"
@@ -73,8 +88,7 @@
                 android:layout_marginBottom="15dp"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="18dp"
-                />
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,8 +146,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="1"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="1" />
 
             </LinearLayout>
 
@@ -153,9 +167,9 @@
             android:id="@+id/non_box"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:visibility="visible">
 

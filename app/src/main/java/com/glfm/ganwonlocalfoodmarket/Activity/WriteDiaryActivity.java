@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -16,22 +15,18 @@ import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
 import com.glfm.ganwonlocalfoodmarket.R;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroCallback;
 import com.glfm.ganwonlocalfoodmarket.Retrofit.RetroClient;
 import com.glfm.ganwonlocalfoodmarket.Util.UserLoginSession;
 
 import java.io.File;
-import java.net.URL;
-import java.nio.file.Paths;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,90 +35,44 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-public class ProductManageActivity extends AppCompatActivity {
-
+public class WriteDiaryActivity extends AppCompatActivity {
     final static String LOG = "WriteReportActivity";
     final static int PICK_FROM_ALBUM = 0;
     final static int MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE = 1;
 
-    @BindView(R.id.name)
-    EditText nameView;
-    @BindView(R.id.detail)
-    EditText detailView;
-    @BindView(R.id.unit)
-    EditText unitView;
-    @BindView(R.id.price)
-    EditText priceView;
+    @BindView(R.id.title)
+    EditText titleView;
     @BindView(R.id.img)
     ImageView imgView;
+    @BindView(R.id.content)
+    EditText contentView;
     @BindView(R.id.submit)
     Button submitView;
 
     private Context mContext;
 
     private Uri mImageCaptureUri;
+
     private RetroClient retroClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_manage);
+        setContentView(R.layout.activity_write_diary);
+
         mContext = this;
         ButterKnife.bind(this);
-        init();
-        initView();
 
         requestReadExternalStoragePermission();
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
-        loadPreProduct();
-    }
-
-    public void init() {
-    }
-
-    public void initView() {
-
-    }
-
-    private void loadPreProduct() {
-
-        retroClient.readProduct(UserLoginSession.getSession().getUser(), new RetroCallback() {
-            @Override
-            public void onError(Throwable t) {
-                Log.d(LOG, t.toString());
-            }
-
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                ProductItem response = (ProductItem) receivedData;
-
-                Glide
-                        .with(mContext)
-                        .load(response.getImg())
-                        .into(imgView);
-
-                nameView.setText(response.getName());
-                detailView.setText(response.getDetail());
-                unitView.setText(response.getUnit());
-                priceView.setText(response.getPrice());
-
-            }
-
-            @Override
-            public void onFailure(int code) {
-                Log.d(LOG, "실패");
-            }
-        });
     }
 
     @OnClick(R.id.submit)
     void submit() {
-        String id = UserLoginSession.getSession().getUser();
-        String name = nameView.getText().toString();
-        String detail = detailView.getText().toString();
-        String unit = unitView.getText().toString();
-        String price = priceView.getText().toString();
+        String seller_id = UserLoginSession.getSession().getUser();
+        String title = titleView.getText().toString();
+        String content = contentView.getText().toString();
 
         if (!checkValidation()) {
             Toast.makeText(getApplicationContext(), "빠진 내용이 있어요!", Toast.LENGTH_SHORT).show();
@@ -132,22 +81,16 @@ public class ProductManageActivity extends AppCompatActivity {
 
         //이전 Product 받았는지 체크
         //IMAGE
-        MultipartBody.Part body = null;
-        if(mImageCaptureUri == null){
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), "-");
-            body =
-                    MultipartBody.Part.createFormData("zo", "-", requestFile);
-        }else {
-            String realPath = getRealPathFromURI(mImageCaptureUri);
-            Log.d(LOG, realPath);
-            File file = new File(realPath);
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body =
-                    MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-        }
-        retroClient.uploadProduct(body, id,name,detail,unit,price, new RetroCallback() {
+
+        String realPath = getRealPathFromURI(mImageCaptureUri);
+        Log.d(LOG, realPath);
+        File file = new File(realPath);
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        retroClient.uploadDiary(body, seller_id, title, content, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
                 Log.d("epzo", t.toString());
@@ -169,10 +112,9 @@ public class ProductManageActivity extends AppCompatActivity {
     }
 
     private boolean checkValidation() {
-        if (nameView.getText().toString().equals("")) return false;
-        if(unitView.getText().toString().equals("")) return false;
-        if(priceView.getText().toString().equals("")) return false;
-//        if(mImageCaptureUri == null) return false;
+        if (titleView.getText().toString().equals("")) return false;
+        if (contentView.getText().toString().equals("")) return false;
+        if (mImageCaptureUri == null) return false;
         return true;
     }
 
@@ -252,6 +194,4 @@ public class ProductManageActivity extends AppCompatActivity {
             // permissions this app might request
         }
     }
-
-
 }

@@ -39,7 +39,10 @@
         <activity android:name=".Activity.SignUpActivity" />
         <activity android:name=".Activity.UpdateMyProfileActivity" />
         <activity android:name=".Activity.CardManageActivity" />
-        <activity android:name=".Activity.DetailOrderManageForSeller"></activity>
+        <activity android:name=".Activity.DetailOrderManageForSeller" />
+        <activity android:name=".Activity.DiaryActivityForSeller" />
+        <activity android:name=".Activity.WriteDiaryActivity" />
+        <activity android:name=".Activity.DiaryActivityForCustomer"></activity>
     </application>
 
 </manifest>

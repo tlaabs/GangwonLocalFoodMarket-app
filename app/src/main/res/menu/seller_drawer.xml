@@ -21,7 +21,6 @@
             android:id="@+id/nav_diary"
             android:icon="@drawable/ic_launcher_background"
             android:title="농장 일기"
-            android:visible="false"
             />
         <item
             android:id="@+id/nav_logout"

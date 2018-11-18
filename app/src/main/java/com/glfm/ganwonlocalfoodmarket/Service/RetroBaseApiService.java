@@ -1,5 +1,6 @@
 package com.glfm.ganwonlocalfoodmarket.Service;
 
+import com.glfm.ganwonlocalfoodmarket.Object.DiaryVO;
 import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
 import com.glfm.ganwonlocalfoodmarket.Object.Login;
 import com.glfm.ganwonlocalfoodmarket.Object.OnlyIdDTO;
@@ -77,6 +78,27 @@ public interface RetroBaseApiService {
     @GET("order/state")
     Call<ResponseBody> updateState(@Query("order_id") String order_id,
                                    @Query("state") String state);
+
+    //농장 일기 쓰기 - Seller
+    @Multipart
+    @POST("diary/add")
+    Call<ResponseBody> uploadDiary(@Part MultipartBody.Part file,
+                                     @Query("seller_id") String seller_id,
+                                     @Query("title") String title,
+                                     @Query("content") String content
+    );
+
+    //다이어리 조회 - Seller
+    @GET("diary/getsForSeller")
+    Call<List<DiaryVO>> getDiarysForSeller(@Query("seller_id") String seller_id);
+
+    //다이어리 삭제 - Seller
+    @GET("diary/delete")
+    Call<ResponseBody> deleteDiary(@Query("diary_id") String diary_id);
+
+    //다이어리 조회 - Customer
+    @GET("diary/getsForCustomer")
+    Call<List<DiaryVO>> getDiarysForCustomer(@Query("farm_id") String farm_id);
 
     @GET("order/state2")
     Call<OrderVO> getState2(@Query("order_id") String order_id);

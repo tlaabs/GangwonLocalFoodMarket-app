@@ -50,6 +50,8 @@ public class DetailMarketActivity extends AppCompatActivity {
     private EditText productQuantityView;
     private Button buyBtn;
 
+    private ImageView diaryBtn;
+
     private RetroClient retroClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,16 @@ public class DetailMarketActivity extends AppCompatActivity {
         productQuantityView = findViewById(R.id.product_quantity);
         buyBtn = findViewById(R.id.buy);
 
+        diaryBtn = findViewById(R.id.diary);
+        diaryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(mContext,DiaryActivityForCustomer.class);
+                i.putExtra("item",item);
+                startActivity(i);
+            }
+        });
+
     }
 
     private void isAvailableProduct(){
@@ -97,9 +109,8 @@ public class DetailMarketActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int code, Object receivedData) {
                 response = (ProductItem)receivedData;
-                String id = response.getId();
-                Log.d(LOG, "현재 상품 아이디 : " + item.getId());
-                if(id.equals("devsim")) Log.d(LOG, "성공");
+
+                if(response.getId() == null) return;
                 else{
                     nonBox.setVisibility(View.GONE);
                     detailProductBox.setVisibility(View.VISIBLE);

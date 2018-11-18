@@ -2,6 +2,7 @@ package com.glfm.ganwonlocalfoodmarket.Retrofit;
 
 import android.content.Context;
 
+import com.glfm.ganwonlocalfoodmarket.Object.DiaryVO;
 import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
 import com.glfm.ganwonlocalfoodmarket.Object.Login;
 import com.glfm.ganwonlocalfoodmarket.Object.OnlyIdDTO;
@@ -69,6 +70,29 @@ public class RetroClient {
                            String price,
                            final RetroCallback callback) {
         apiService.uploadProduct(file,id,name,detail,unit,price).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void uploadDiary(MultipartBody.Part file,
+                              String seller_id,
+                              String title,
+                              String content,
+                              final RetroCallback callback) {
+        apiService.uploadDiary(file,seller_id,title,content).enqueue(new Callback<ResponseBody>() {
 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -302,4 +326,61 @@ public class RetroClient {
         });
     }
 
+    public void getDiarysForSeller(String seller_id, final RetroCallback callback) {
+        apiService.getDiarysForSeller(seller_id).enqueue(new Callback<List<DiaryVO>>() {
+
+            @Override
+            public void onResponse(Call<List<DiaryVO>> call, Response<List<DiaryVO>> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DiaryVO>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void getDiarysForCustomer(String farm_id, final RetroCallback callback) {
+        apiService.getDiarysForCustomer(farm_id).enqueue(new Callback<List<DiaryVO>>() {
+
+            @Override
+            public void onResponse(Call<List<DiaryVO>> call, Response<List<DiaryVO>> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DiaryVO>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //다이어리 삭제
+    public void deleteDiary(String diary_id, final RetroCallback callback) {
+        apiService.deleteDiary(diary_id).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
 }
