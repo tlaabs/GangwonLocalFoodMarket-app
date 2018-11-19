@@ -58,6 +58,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/box_entire_line"
             android:hint="단위당 가격"
+            android:inputType="number"
             android:padding="10dp" />
 
         <Button

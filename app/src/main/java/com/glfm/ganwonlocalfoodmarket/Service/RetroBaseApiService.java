@@ -23,7 +23,8 @@ import retrofit2.http.Query;
 
 public interface RetroBaseApiService {
 
-    final String Base_URL = "http://172.30.1.52:8080/";
+    final String Base_URL = "http://devsim.cafe24.com/GLFM/";
+//    final String Base_URL = "http://172.30.1.52:8080/";
 //    final String Base_URL = "http://192.168.43.97:8080/";
 //    final String Base_URL = "http://172.16.22.9:8080/";
 
@@ -83,9 +84,9 @@ public interface RetroBaseApiService {
     @Multipart
     @POST("diary/add")
     Call<ResponseBody> uploadDiary(@Part MultipartBody.Part file,
-                                     @Query("seller_id") String seller_id,
-                                     @Query("title") String title,
-                                     @Query("content") String content
+                                   @Query("seller_id") String seller_id,
+                                   @Query("title") String title,
+                                   @Query("content") String content
     );
 
     //다이어리 조회 - Seller

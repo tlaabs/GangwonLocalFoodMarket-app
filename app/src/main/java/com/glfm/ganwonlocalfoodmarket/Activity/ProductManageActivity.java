@@ -98,10 +98,15 @@ public class ProductManageActivity extends AppCompatActivity {
             public void onSuccess(int code, Object receivedData) {
                 ProductItem response = (ProductItem) receivedData;
 
-                Glide
-                        .with(mContext)
-                        .load(response.getImg())
-                        .into(imgView);
+                if(response.getImg() != null) {
+                    Glide
+                            .with(mContext)
+                            .load(response.getImg())
+                            .into(imgView);
+                }
+                else{
+                    imgView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.camera));
+                }
 
                 nameView.setText(response.getName());
                 detailView.setText(response.getDetail());
@@ -133,12 +138,12 @@ public class ProductManageActivity extends AppCompatActivity {
         //이전 Product 받았는지 체크
         //IMAGE
         MultipartBody.Part body = null;
-        if(mImageCaptureUri == null){
+        if (mImageCaptureUri == null) {
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), "-");
             body =
                     MultipartBody.Part.createFormData("zo", "-", requestFile);
-        }else {
+        } else {
             String realPath = getRealPathFromURI(mImageCaptureUri);
             Log.d(LOG, realPath);
             File file = new File(realPath);
@@ -147,7 +152,7 @@ public class ProductManageActivity extends AppCompatActivity {
             body =
                     MultipartBody.Part.createFormData("file", file.getName(), requestFile);
         }
-        retroClient.uploadProduct(body, id,name,detail,unit,price, new RetroCallback() {
+        retroClient.uploadProduct(body, id, name, detail, unit, price, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
                 Log.d("epzo", t.toString());
@@ -170,8 +175,8 @@ public class ProductManageActivity extends AppCompatActivity {
 
     private boolean checkValidation() {
         if (nameView.getText().toString().equals("")) return false;
-        if(unitView.getText().toString().equals("")) return false;
-        if(priceView.getText().toString().equals("")) return false;
+        if (unitView.getText().toString().equals("")) return false;
+        if (priceView.getText().toString().equals("")) return false;
 //        if(mImageCaptureUri == null) return false;
         return true;
     }

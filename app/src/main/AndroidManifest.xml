@@ -34,7 +34,9 @@
         <activity android:name=".Activity.ProductManageActivity"
             android:label="상품 관리"
             />
-        <activity android:name=".Activity.BuyActivity" />
+        <activity android:name=".Activity.BuyActivity"
+            android:label="주문서 작성"
+            />
         <activity android:name=".Activity.OrderManageActivity" />
         <activity android:name=".Activity.OrderManageForSeller"
             android:label="주문 관리"
