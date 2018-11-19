@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".Activity.ProductManageActivity">
 
     <LinearLayout
@@ -62,7 +64,11 @@
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="등록" />
+            android:text="저장"
+            android:background="@color/colorMain"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            />
 
     </LinearLayout>
 </ScrollView>

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".Activity.CardManageActivity">
 
     <LinearLayout

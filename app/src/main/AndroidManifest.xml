@@ -31,10 +31,14 @@
         <activity
             android:name=".Activity.ManageChoiceActivity"
             android:theme="@style/NoTitleThemeDialog" />
-        <activity android:name=".Activity.ProductManageActivity" />
+        <activity android:name=".Activity.ProductManageActivity"
+            android:label="상품 관리"
+            />
         <activity android:name=".Activity.BuyActivity" />
         <activity android:name=".Activity.OrderManageActivity" />
-        <activity android:name=".Activity.OrderManageForSeller" />
+        <activity android:name=".Activity.OrderManageForSeller"
+            android:label="주문 관리"
+            />
         <activity android:name=".Activity.UserMyOrderActivity"
             android:label="주문 조회"
             />
@@ -47,10 +51,18 @@
         <activity android:name=".Activity.CardManageActivity"
             android:label="카드 관리"
             />
-        <activity android:name=".Activity.DetailOrderManageForSeller" />
-        <activity android:name=".Activity.DiaryActivityForSeller" />
-        <activity android:name=".Activity.WriteDiaryActivity" />
-        <activity android:name=".Activity.DiaryActivityForCustomer"></activity>
+        <activity android:name=".Activity.DetailOrderManageForSeller"
+            android:label="주문 정보"
+            />
+        <activity android:name=".Activity.DiaryActivityForSeller"
+            android:label="농장일기"
+            />
+        <activity android:name=".Activity.WriteDiaryActivity"
+            android:label="농장일기 작성"
+            />
+        <activity android:name=".Activity.DiaryActivityForCustomer"
+            android:label="농장일기"
+            ></activity>
     </application>
 
 </manifest>

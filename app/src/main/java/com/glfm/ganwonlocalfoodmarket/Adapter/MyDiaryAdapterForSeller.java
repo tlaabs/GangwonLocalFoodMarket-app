@@ -66,7 +66,7 @@ public class MyDiaryAdapterForSeller extends RecyclerView.Adapter<MyDiaryAdapter
                     @Override
                     public void onSuccess(int code, Object receivedData) {
                         Log.d(LOG, "성공");
-                        Toast.makeText(parent, "삭제 완료", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(parent, "삭제 완료.", Toast.LENGTH_SHORT).show();
                         ((DiaryActivityForSeller)parent).invalidateResume();
                     }
 
@@ -83,8 +83,8 @@ public class MyDiaryAdapterForSeller extends RecyclerView.Adapter<MyDiaryAdapter
                 .load(item.getImg())
                 .into(viewHolder.imgView);
 
-        viewHolder.titleView.setText("제목 : " + item.getTitle());
-        viewHolder.regDateView.setText("작성일 : " + item.getRegDate());
+        viewHolder.titleView.setText(item.getTitle());
+        viewHolder.regDateView.setText("작성일자 : " + item.getRegDate());
         viewHolder.contentView.setText(item.getContent());
     }
 

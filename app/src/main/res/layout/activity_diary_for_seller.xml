@@ -14,13 +14,19 @@
         android:id="@+id/wirte_diary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="농장 일기 작성"
+        android:background="@drawable/round_square_background"
+        android:textSize="15dp"
+        android:textColor="#ffffff"
+        android:text="농장일기 작성"
+        android:layout_marginBottom="15dp"
         />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:layout_height="0dp"></android.support.v7.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:background="#e5e5e5"
+        ></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

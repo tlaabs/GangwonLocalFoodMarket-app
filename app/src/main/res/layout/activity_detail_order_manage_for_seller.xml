@@ -120,6 +120,9 @@
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="확인" />
+            android:background="@color/colorMain"
+            android:text="적용"
+            android:textColor="#ffffff"
+            android:textSize="15dp"/>
     </LinearLayout>
 </ScrollView>

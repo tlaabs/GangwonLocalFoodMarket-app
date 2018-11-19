@@ -5,132 +5,115 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.SignUpActivity"
-    >
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".Activity.SignUpActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        >
+        android:padding="20dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="아이디"
-                />
+                android:text="아이디" />
+
             <EditText
                 android:id="@+id/idBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="center"
                 android:background="@drawable/box_entire_line"
                 android:editable="false"
-                />
+                android:gravity="center"
+                android:padding="10dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="비밀번호"
-                />
+                android:text="비밀번호" />
+
             <EditText
                 android:id="@+id/pwdBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="center"
                 android:background="@drawable/box_entire_line"
-                />
+                android:gravity="center"
+                android:padding="10dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="이름"
-                />
+                android:text="이름" />
 
             <EditText
                 android:id="@+id/nameBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="center"
                 android:background="@drawable/box_entire_line"
-                />
+                android:gravity="center"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="연락처"
-                />
+                android:text="연락처" />
 
             <EditText
                 android:id="@+id/phoneBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="center"
                 android:background="@drawable/box_entire_line"
-                />
+                android:gravity="center"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="이메일"
-                />
+                android:text="이메일" />
 
             <EditText
                 android:id="@+id/emailBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="center"
                 android:background="@drawable/box_entire_line"
-                />
+                android:gravity="center"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="거주지"
-                />
+                android:text="거주지" />
 
             <EditText
                 android:id="@+id/addressBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="center"
                 android:background="@drawable/box_entire_line"
-                />
+                android:gravity="center"
+                android:padding="10dp" />
 
-            <LinearLayout
+
+            <Button
+                android:id="@+id/update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <Button
-                    android:id="@+id/back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="뒤로"
-                    />
-                <Button
-                    android:id="@+id/update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="업데이트"
-                    />
+                android:background="@color/colorMain"
+                android:text="저장"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
 
-            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

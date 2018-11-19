@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.glfm.ganwonlocalfoodmarket.Object.OrderVO;
 import com.glfm.ganwonlocalfoodmarket.Object.ProductItem;
@@ -60,6 +61,7 @@ public class DetailOrderManageForSeller extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData) {
+                Toast.makeText(getApplicationContext(),"적용 완료.", Toast.LENGTH_SHORT).show();
                 Log.d(LOG, "성공");
                 finish();
             }

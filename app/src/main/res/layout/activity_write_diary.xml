@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".Activity.WriteDiaryActivity">
 
     <LinearLayout
@@ -37,14 +39,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/box_entire_line"
-            android:hint="품명"
+            android:hint="내용"
             android:padding="10dp" />
 
         <Button
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="등록" />
+            android:background="@color/colorMain"
+            android:text="등록"
+            android:textColor="#ffffff"
+            android:textSize="15dp"/>
 
     </LinearLayout>
 </ScrollView>

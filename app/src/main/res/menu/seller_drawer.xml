@@ -4,27 +4,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_my_account"
-            android:icon="@drawable/ic_launcher_background"
+            android:icon="@drawable/baseline_account_box_black_36"
             android:title="나의 계정"
             />
         <item
             android:id="@+id/nav_product"
-            android:icon="@drawable/ic_launcher_background"
+            android:icon="@drawable/baseline_card_giftcard_black_36"
             android:title="상품 관리"
             />
         <item
             android:id="@+id/nav_order_manage"
-            android:icon="@drawable/ic_launcher_background"
+            android:icon="@drawable/baseline_receipt_black_36"
             android:title="주문 관리"
             />
         <item
             android:id="@+id/nav_diary"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="농장 일기"
+            android:icon="@drawable/baseline_local_florist_black_36"
+            android:title="농장일기"
             />
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_launcher_background"
+            android:icon="@drawable/baseline_vpn_key_black_36"
             android:title="로그아웃" />
     </group>
 
