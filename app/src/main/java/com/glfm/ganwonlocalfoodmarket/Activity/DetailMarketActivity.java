@@ -123,7 +123,7 @@ public class DetailMarketActivity extends AppCompatActivity {
                     productNameView.setText(response.getName());
                     productDetail.setText(response.getDetail());
                     productUnitView.setText(response.getUnit());
-                    productPriceView.setText(response.getPrice());
+                    productPriceView.setText(response.getPrice()+"원");
 
 
                 }

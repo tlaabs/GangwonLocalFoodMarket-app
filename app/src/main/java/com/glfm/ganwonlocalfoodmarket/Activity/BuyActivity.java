@@ -68,7 +68,7 @@ public class BuyActivity extends AppCompatActivity {
     }
 
     public void initView() {
-        productNameView.setText("품목 : " + item.getName());
+        productNameView.setText(item.getName());
         productQuantitiyView.setText("수량 : " + item.getQuantity());
 
         int quantity_int = Integer.parseInt(item.getQuantity());
@@ -102,6 +102,14 @@ public class BuyActivity extends AppCompatActivity {
         });
     }
 
+    private boolean validator(OrderVO item){
+        if(item.getPhone() == null || item.getPhone().equals("")) return false;
+        if(item.getEmail() == null || item.getEmail().equals("")) return false;
+        if(item.getAddress() == null || item.getAddress().equals("")) return false;
+        if(item.getCard() == null || item.getCard().equals("")) return false;
+        return true;
+    }
+
     @OnClick(R.id.submit)
     public void submit() {
         OrderVO orderItem = new OrderVO();
@@ -116,6 +124,11 @@ public class BuyActivity extends AppCompatActivity {
         int quantity_int = Integer.parseInt(item.getQuantity());
         int price_int = Integer.parseInt(item.getPrice());
         orderItem.setTotal(quantity_int * price_int + "");
+
+        if(!validator(orderItem)){
+            Toast.makeText(getApplicationContext(),"빠짐없이 입력해 주세요.",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         retroClient.order(orderItem, new RetroCallback() {
             @Override

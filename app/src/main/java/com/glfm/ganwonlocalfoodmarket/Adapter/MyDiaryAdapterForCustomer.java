@@ -58,8 +58,8 @@ public class MyDiaryAdapterForCustomer extends RecyclerView.Adapter<MyDiaryAdapt
                 .load(item.getImg())
                 .into(viewHolder.imgView);
 
-        viewHolder.titleView.setText("제목 : " + item.getTitle());
-        viewHolder.regDateView.setText("작성일 : " + item.getRegDate());
+        viewHolder.titleView.setText(item.getTitle());
+        viewHolder.regDateView.setText("작성일자 : " + item.getRegDate());
         viewHolder.contentView.setText(item.getContent());
     }
 

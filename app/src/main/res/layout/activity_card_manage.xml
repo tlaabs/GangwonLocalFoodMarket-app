@@ -5,70 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.CardManageActivity"
     android:padding="20dp"
-    >
+    tools:context=".Activity.CardManageActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        >
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/card" />
+
+        <TextView
+            android:id="@+id/cardshow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="카드번호" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
         <EditText
             android:id="@+id/pin1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:maxLength="4"
             android:background="@drawable/box_entire_line"
-            android:padding="6dp"
-            />
+            android:maxLength="4"
+            android:gravity="center"
+            android:padding="6dp" />
+
         <EditText
             android:id="@+id/pin2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:maxLength="4"
             android:background="@drawable/box_entire_line"
-            android:padding="6dp"
-            />
+            android:maxLength="4"
+            android:gravity="center"
+            android:padding="6dp" />
 
         <EditText
             android:id="@+id/pin3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:maxLength="4"
             android:background="@drawable/box_entire_line"
-            android:padding="6dp"
-            />
+            android:maxLength="4"
+            android:gravity="center"
+            android:padding="6dp" />
 
         <EditText
             android:id="@+id/pin4"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:maxLength="4"
             android:background="@drawable/box_entire_line"
-            android:padding="6dp"
-            />
+            android:maxLength="4"
+            android:gravity="center"
+            android:padding="6dp" />
     </LinearLayout>
 
 
-    <LinearLayout
+    <Button
+        android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="뒤로"
-            />
-        <Button
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="등록"
-            />
+        android:background="@color/colorMain"
+        android:text="등록"
+        android:textColor="#ffffff"
+        android:textSize="15dp" />
 
-    </LinearLayout>
+
 </LinearLayout>

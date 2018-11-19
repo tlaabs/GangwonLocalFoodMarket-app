@@ -105,7 +105,7 @@ public class CardManageActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData){
-                Toast.makeText(getApplicationContext(),"업데이트 성공!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"카드 등록 완료.",Toast.LENGTH_SHORT).show();
                 finish();
             }
 

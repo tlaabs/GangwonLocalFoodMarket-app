@@ -95,9 +95,10 @@ public class MainActivity extends AppCompatActivity implements
         recursiveGetData(0);
 
     }
-    public void recursiveGetData(int n){
+
+    public void recursiveGetData(int n) {
         final int nn = n;
-        if(nn == MAX_RECURSIVE) {
+        if (nn == MAX_RECURSIVE) {
             initList(farmList);
             return;
         }
@@ -107,26 +108,30 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onError(Throwable t) {
                 Log.d(LOG, t.toString());
-                recursiveGetData(nn+1);
+                recursiveGetData(nn + 1);
             }
 
             @Override
             public void onSuccess(int code, Object receivedData) {
                 ProductItem orders = ((ProductItem) receivedData);
-                item.setPrice(orders.getPrice());
-                item.setImg(orders.getImg());
-                farmList.remove(nn);
-                farmList.add(nn,item);
-                recursiveGetData(nn+1);
+                if (orders.getId() != null) {
+                    item.setPrice(orders.getPrice());
+                    item.setImg(orders.getImg());
+                    item.setProduct(orders.getName());
+                    farmList.remove(nn);
+                    farmList.add(nn, item);
+                }
+                recursiveGetData(nn + 1);
             }
 
             @Override
             public void onFailure(int code) {
                 Log.d(LOG, "실패");
-                recursiveGetData(nn+1);
+                recursiveGetData(nn + 1);
             }
         });
     }
+
     private void iniNavItem() {
         navigationView.getMenu().clear();
         if ((UserLoginSession.getSession().getType()).equals("customer")) {

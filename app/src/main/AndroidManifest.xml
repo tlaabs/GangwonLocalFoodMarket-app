@@ -35,12 +35,18 @@
         <activity android:name=".Activity.BuyActivity" />
         <activity android:name=".Activity.OrderManageActivity" />
         <activity android:name=".Activity.OrderManageForSeller" />
-        <activity android:name=".Activity.UserMyOrderActivity" />
+        <activity android:name=".Activity.UserMyOrderActivity"
+            android:label="주문 조회"
+            />
         <activity android:name=".Activity.SignUpActivity"
             android:label="회원가입"
             />
-        <activity android:name=".Activity.UpdateMyProfileActivity" />
-        <activity android:name=".Activity.CardManageActivity" />
+        <activity android:name=".Activity.UpdateMyProfileActivity"
+            android:label="나의 계정"
+            />
+        <activity android:name=".Activity.CardManageActivity"
+            android:label="카드 관리"
+            />
         <activity android:name=".Activity.DetailOrderManageForSeller" />
         <activity android:name=".Activity.DiaryActivityForSeller" />
         <activity android:name=".Activity.WriteDiaryActivity" />

@@ -68,7 +68,7 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.ViewHolder> {
             Glide
                     .with(parent)
                     .load(item.getImg())
-                    .apply(RequestOptions.centerCropTransform())
+                    .apply(RequestOptions.circleCropTransform())
                     .into(viewHolder.farmImg);
         }else{
             Glide
